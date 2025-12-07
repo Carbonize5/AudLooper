@@ -3,30 +3,40 @@
 
 #include <QString>
 #include <QtMultimedia/QMediaPlayer>
+#include <QList>
 
 class Tag
 {
 public:
     Tag(int pos);
+    Tag(QList<int> *values);
+    virtual QString toUI();
+    virtual void useTag(QMediaPlayer *mediaPlayer);
+    virtual Tag* copy();
+
     int getPosition() const;
     void setPosition(int newPosition);
-    QString toUI();
-    void useTag(QMediaPlayer *mediaPlayer);
+
+    QList<int> *getValues() const;
+    QList<QString> *getValuesNames() const;
+
+    void setValues(QList<int> *newValues);
+    void setValuesNames(QList<QString> *newValuesNames);
 
 protected:
-    int position;
+    QList<int> *values;
+    QList<QString> *valuesNames;
 };
 
 class GoToTag : Tag{
 public:
     GoToTag(int pos, int dest);
+    GoToTag(QList<int> *values);
+    QString toUI() override;
+    void useTag(QMediaPlayer *mediaPlayer) override;
+    Tag* copy() override;
     int getDestination() const;
     void setDestination(int newDestination);
-    QString toUI();
-    void useTag(QMediaPlayer *mediaPlayer);
-
-protected:
-    int destination;
 };
 
 #endif // TAG_H

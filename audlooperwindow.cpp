@@ -32,10 +32,11 @@ void AudLooperWindow::initUI(){
     this->audioPlayer = new AudioPlayer(this);
 
     // Tag Manager Widget
+    this->tagManager = new TagManager(this);
 
     // App Layout
 
-        // Menu Bar
+    // // Menu Bar
     this->loadAudioAction = new QAction("Load File", this);
     this->loadAudioAction->setStatusTip("Load an Audio file int the player");
 
@@ -43,12 +44,18 @@ void AudLooperWindow::initUI(){
     QMenu *file_menu = menu->addMenu("File");
     file_menu->addAction(this->loadAudioAction);
 
-    this->setCentralWidget(this->audioPlayer);
+    // // Central Widget
+    this->setCentralWidget(this->tagManager);
+
+    // // Docker Widgets
+    // // // Bottom Widget (Audio Player)
+
+
     std::cout << "run" << std::endl;
 }
 
 void AudLooperWindow::eventHandler(){
-    connect(this->loadAudioAction, SIGNAL(triggered(bool)), this, SLOT(loadAudioFile()));
+    //connect(this->loadAudioAction, SIGNAL(triggered(bool)), this, SLOT(loadAudioFile()));
 }
 
 void AudLooperWindow::loadAudioFile()
@@ -64,7 +71,7 @@ void AudLooperWindow::loadAudioFile()
         if (!dialog->selectedFiles().isEmpty()){
             QMediaPlayer *player = this->audioPlayer->getMediaPlayer();
             if (!player->source().isEmpty()) player->stop();
-            player->setSource(QUrl::fromLocalFile(dialog->selectedFiles()[0]));
+            player->setSource(QUrl::fromLocalFile(dialog->selectedFiles().at(0)));
             //player.
         }
     }

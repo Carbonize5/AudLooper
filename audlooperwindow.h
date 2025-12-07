@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QAction>
+
 #include "audioplayer.h"
+#include "tagmanager.h"
 
 class AudLooperWindow : public QMainWindow
 {
@@ -17,6 +19,7 @@ public:
 private:
     QStringList mimeTypeFilters;
     AudioPlayer *audioPlayer;
+    TagManager *tagManager;
     QAction *loadAudioAction;
     QAction *saveAction;
     QAction *loadSaveAction;
